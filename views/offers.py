@@ -14,7 +14,7 @@ class OffersView(Resource):
 
     def post(self):
         offer = request.json
-        db.session.add(offer(**offer))
+        db.session.add(Offer(**offer))
         db.session.commit()
         return 'Предложение добавлено', 201
 
@@ -22,7 +22,7 @@ class OffersView(Resource):
 @offers_ns.route('/<id>')
 class offerView(Resource):
     def get(self, id):
-        offer = Offer.query.filter(Offer.id == id).first()
+        offer = Offer.query.get(id)
         if offer is None:
             return abort(404)
 

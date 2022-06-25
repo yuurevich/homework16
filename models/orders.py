@@ -25,6 +25,6 @@ class OrderSchema(Schema):
     start_date = fields.Date()
     end_date = fields.Date()
     address = fields.Str()
-    price = fields.Str()
+    price = fields.Int()
     customer_id = fields.Int()
-    executor_id = fields.Str()
+    executor_id = fields.Int()

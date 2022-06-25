@@ -2,6 +2,7 @@ from flask import request, abort
 from flask_restx import Resource, Namespace
 from models.orders import OrderSchema, Order
 from setup_db import db
+from datetime import datetime
 
 orders_ns = Namespace('orders')
 
@@ -14,7 +15,9 @@ class OrdersView(Resource):
 
     def post(self):
         order = request.json
-        db.session.add(order(**order))
+        order['start_date'] = datetime.strptime(order['start_date'], '%m/%d/%Y')
+        order['end_date'] = datetime.strptime(order['end_date'], '%m/%d/%Y')
+        db.session.add(Order(**order))
         db.session.commit()
         return 'Заказ добавлен', 201
 
